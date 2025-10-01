@@ -1,6 +1,6 @@
-# IngWork 
+# ConstruMatch 
 
-**Marketplace para conectar Clientes con Ingenieros**
+**Marketplace para conectar Clientes con Profesionales de la Construcción**
 
 Stack: Next.js (App Router, TypeScript, Tailwind), Supabase (Auth/DB/Storage/Realtime), desplegado en Vercel.
 
@@ -45,7 +45,7 @@ Abre http://localhost:3000
 
 ## Estructura inicial
 
-- `src/app/page.tsx`: Landing con botones “Soy Cliente” y “Soy Ingeniero”.
+- `src/app/page.tsx`: Landing con botones "Soy Cliente" y "Soy Profesional".
 - `src/app/auth/login/page.tsx`: Pantalla stub de login.
 - `src/app/auth/register/page.tsx`: Pantalla stub de registro con selección de rol por querystring.
 - `src/lib/supabase/client.ts` y `src/lib/supabase/server.ts`: clientes de Supabase (navegador/servidor).
@@ -61,7 +61,7 @@ Abre http://localhost:3000
 ## Próximos pasos
 
 - Integrar Supabase Auth en `/auth/login` y `/auth/register`.
-- Panel Cliente: crear proyecto, ver estados, buscar ingenieros.
-- Panel Ingeniero: ver proyectos disponibles, enviar propuestas, gestionar propuestas.
+- Panel Cliente: crear proyecto, ver estados, buscar profesionales de construcción.
+- Panel Profesional: ver proyectos de construcción disponibles, enviar propuestas, gestionar propuestas.
 - Mensajería dentro del proyecto y carga de archivos (Storage).
 - Calificaciones y reseñas al completar proyectos.

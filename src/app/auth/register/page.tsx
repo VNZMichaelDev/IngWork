@@ -82,7 +82,7 @@ export default function RegisterPage({ searchParams }: Props) {
       <main className="w-full max-w-md space-y-6 bg-white p-8 rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-2xl font-bold">Crear cuenta</h1>
-          <p className="text-gray-600 mt-2">Únete a IngWork</p>
+          <p className="text-gray-600 mt-2">Únete a ConstruMatch</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

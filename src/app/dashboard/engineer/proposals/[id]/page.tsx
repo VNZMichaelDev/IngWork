@@ -144,7 +144,7 @@ export default function ProposalDetailsPage() {
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-4">
               <Link href="/" className="text-2xl font-bold text-blue-600">
-                IngWork
+                ConstruMatch
               </Link>
               <span className="text-gray-400">|</span>
               <span className="text-gray-600">Detalles de Propuesta</span>

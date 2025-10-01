@@ -260,7 +260,7 @@ export default function ClientProjectDetailPage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <Link href="/" className="text-xl font-bold text-blue-600">
-                IngWork
+                ConstruMatch
               </Link>
               <span className="ml-4 text-gray-500">Gestionar Proyecto</span>
             </div>

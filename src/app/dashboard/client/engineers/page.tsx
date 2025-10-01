@@ -190,9 +190,9 @@ export default function EngineersSearchPage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <Link href="/" className="text-xl font-bold text-blue-600">
-                IngWork
+                ConstruMatch
               </Link>
-              <span className="ml-4 text-gray-500">Buscar Ingenieros</span>
+              <span className="ml-4 text-gray-500">Buscar Profesionales</span>
             </div>
             <Link href="/dashboard/client">
               <Button variant="outline" size="sm">

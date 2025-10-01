@@ -1,4 +1,4 @@
-# IngWork - Documentación de API
+# ConstruMatch - Documentación de API
 
 ## 📋 Tabla de Contenidos
 
@@ -854,4 +854,4 @@ const submitProposalFlow = async (projectId: string) => {
 
 ---
 
-Esta documentación cubre todas las operaciones principales de la API de IngWork. Para más detalles sobre configuración y deployment, consulta el README.md principal.
+Esta documentación cubre todas las operaciones principales de la API de ConstruMatch. Para más detalles sobre configuración y deployment, consulta el README.md principal.

@@ -178,10 +178,10 @@ export default function EngineerDashboard() {
           <div className="flex justify-between items-center py-3 sm:py-4">
             <div className="flex items-center space-x-2 sm:space-x-4">
               <Link href="/" className="text-xl sm:text-2xl font-bold text-blue-600">
-                IngWork
+                ConstruMatch
               </Link>
               <span className="hidden sm:inline text-gray-400">|</span>
-              <span className="hidden sm:inline text-gray-600">Panel Ingeniero</span>
+              <span className="hidden sm:inline text-gray-600">Panel Profesional</span>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4">
               <span className="hidden sm:inline text-sm text-gray-600">

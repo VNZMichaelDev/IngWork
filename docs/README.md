@@ -1,12 +1,12 @@
-# IngWork - Documentación Técnica
+# ConstruMatch - Documentación Técnica
 
 ## 🚀 Descripción del Proyecto
 
-**IngWork** es un marketplace digital que conecta clientes con ingenieros profesionales. Desarrollado con Next.js 15, TypeScript, Tailwind CSS y Supabase.
+**ConstruMatch** es un marketplace digital que conecta clientes con profesionales de la construcción. Desarrollado con Next.js 15, TypeScript, Tailwind CSS y Supabase.
 
 ## 📋 Características Principales
 
-- 🔐 **Autenticación completa** con roles (Cliente/Ingeniero)
+- 🔐 **Autenticación completa** con roles (Cliente/Profesional)
 - 👥 **Gestión de perfiles** diferenciados por rol
 - 📋 **Sistema de proyectos** con publicación y gestión
 - 💼 **Propuestas y negociación** entre usuarios
@@ -37,13 +37,13 @@
 ## 📁 Estructura del Proyecto
 
 ```
-ingwork/
+construmatch/
 ├── src/
 │   ├── app/                    # App Router de Next.js
 │   │   ├── auth/              # Autenticación (login, register)
 │   │   ├── dashboard/         # Dashboards por rol
 │   │   │   ├── client/        # Dashboard del cliente
-│   │   │   └── engineer/      # Dashboard del ingeniero
+│   │   │   └── engineer/      # Dashboard del profesional
 │   │   ├── onboarding/        # Configuración inicial
 │   │   └── page.tsx           # Landing page
 │   ├── components/            # Componentes reutilizables
@@ -98,8 +98,8 @@ CREATE POLICY "Project participants can view proposals" ON proposals FOR SELECT 
 
 | Rol | Descripción | Permisos |
 |-----|-------------|----------|
-| **Cliente** | Empresas o personas que publican proyectos | - Crear proyectos<br>- Ver propuestas<br>- Contratar ingenieros<br>- Calificar trabajo |
-| **Ingeniero** | Profesionales que ofrecen servicios | - Ver proyectos<br>- Enviar propuestas<br>- Comunicarse con clientes<br>- Gestionar perfil |
+| **Cliente** | Empresas o personas que publican proyectos | - Crear proyectos<br>- Ver propuestas<br>- Contratar profesionales<br>- Calificar trabajo |
+| **Profesional** | Especialistas en construcción que ofrecen servicios | - Ver proyectos<br>- Enviar propuestas<br>- Comunicarse con clientes<br>- Gestionar perfil |
 
 ### Flujo de Autenticación
 
@@ -140,7 +140,7 @@ CREATE POLICY "Project participants can view proposals" ON proposals FOR SELECT 
 ### 1. Clonar el Repositorio
 ```bash
 git clone <repository-url>
-cd ingwork
+cd construmatch
 ```
 
 ### 2. Instalar Dependencias
@@ -158,7 +158,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ### 4. Configurar Base de Datos
 1. Ir a Supabase Dashboard → SQL Editor
-2. Ejecutar el script `database/ingwork_database.sql`
+2. Ejecutar el script `database/construmatch_database.sql`
 3. Verificar que todas las tablas se crearon correctamente
 
 ### 5. Ejecutar en Desarrollo
@@ -186,12 +186,12 @@ npm run lint         # Linting del código
 ### Cliente
 - ✅ Crear y gestionar proyectos
 - ✅ Ver propuestas recibidas
-- ✅ Comunicarse con ingenieros
-- ✅ Contratar y calificar ingenieros
+- ✅ Comunicarse con profesionales
+- ✅ Contratar y calificar profesionales
 - ✅ Gestionar perfil de empresa
 
-### Ingeniero
-- ✅ Buscar proyectos disponibles
+### Profesional de Construcción
+- ✅ Buscar proyectos de construcción disponibles
 - ✅ Enviar propuestas personalizadas
 - ✅ Comunicarse con clientes
 - ✅ Gestionar perfil profesional
@@ -267,4 +267,4 @@ Este proyecto es privado y propietario.
 
 ---
 
-**Desarrollado con ❤️ usando Next.js, TypeScript y Supabase**
+**ConstruMatch - Desarrollado con ❤️ usando Next.js, TypeScript y Supabase**

@@ -11,20 +11,20 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-8">
             <Image 
               src="/ingwork logo.png" 
-              alt="IngWork Logo" 
+              alt="ConstruMatch Logo" 
               width={48}
               height={48}
               className="object-contain sm:w-16 sm:h-16 lg:w-20 lg:h-20"
             />
             <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900">
-              IngWork
+              ConstruMatch
             </h1>
           </div>
 
           {/* Description - Responsive text */}
           <div className="max-w-2xl lg:max-w-4xl">
             <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed px-4 sm:px-0">
-              Conecta Clientes con Ingenieros. Crea proyectos, recibe propuestas, negocia y gestiona el trabajo en un solo lugar.
+              Conecta Clientes con Profesionales de la Construcción. Encuentra expertos en construcción, recibe propuestas especializadas y gestiona tus proyectos de obra en un solo lugar.
             </p>
           </div>
 
@@ -43,7 +43,7 @@ export default function Home() {
                 <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">Soy Cliente</h2>
               </div>
               <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                Publica un proyecto y recibe propuestas de ingenieros profesionales especializados.
+                Publica tu proyecto de construcción y recibe propuestas de profesionales especializados en el sector.
               </p>
             </a>
 
@@ -58,10 +58,10 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
-                <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">Soy Ingeniero</h2>
+                <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">Soy Profesional</h2>
               </div>
               <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-                Encuentra proyectos según tu especialidad y envía propuestas competitivas.
+                Encuentra proyectos de construcción según tu especialidad y envía propuestas competitivas.
               </p>
             </a>
           </div>

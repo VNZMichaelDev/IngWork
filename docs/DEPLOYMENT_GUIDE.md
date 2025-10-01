@@ -1,4 +1,4 @@
-# IngWork - Guía de Deployment
+# ConstruMatch - Guía de Deployment
 
 ## 📋 Tabla de Contenidos
 
@@ -84,7 +84,7 @@ export default nextConfig;
 1. **Ir a** [supabase.com](https://supabase.com)
 2. **Crear cuenta** o iniciar sesión
 3. **Crear nuevo proyecto**:
-   - Nombre: `ingwork-production`
+   - Nombre: `construmatch-production`
    - Región: Elegir la más cercana a tus usuarios
    - Plan: Pro (recomendado para producción)
 
@@ -92,7 +92,7 @@ export default nextConfig;
 
 ```sql
 -- Ejecutar en Supabase SQL Editor
--- Copiar y pegar el contenido completo de database/ingwork_database.sql
+-- Copiar y pegar el contenido completo de database/construmatch_database.sql
 ```
 
 ### 3. Configurar Storage
@@ -159,7 +159,7 @@ git add .
 git commit -m "Initial commit"
 
 # Subir a GitHub
-git remote add origin https://github.com/tu-usuario/ingwork.git
+git remote add origin https://github.com/tu-usuario/construmatch.git
 git branch -M main
 git push -u origin main
 ```
@@ -255,7 +255,7 @@ NODE_ENV=staging
 
 ### 1. Comprar Dominio
 - Recomendados: Namecheap, GoDaddy, Google Domains
-- Ejemplo: `ingwork.com`
+- Ejemplo: `construmatch.com`
 
 ### 2. Configurar DNS
 
@@ -574,7 +574,7 @@ vercel rollback [deployment-url]
 
 ---
 
-**¡Tu aplicación IngWork está lista para producción! 🚀**
+**¡Tu aplicación ConstruMatch está lista para producción! 🚀**
 
 Para soporte adicional, consulta:
 - [Documentación de Vercel](https://vercel.com/docs)

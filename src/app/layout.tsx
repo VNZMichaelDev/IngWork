@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "IngWork - Conecta Clientes con Ingenieros",
-  description: "Marketplace para conectar clientes con ingenieros profesionales. Crea proyectos, recibe propuestas y gestiona el trabajo en un solo lugar.",
-  keywords: "ingenieros, proyectos, freelance, marketplace, desarrollo, consultoría",
+  title: "ConstruMatch - Conecta Clientes con Profesionales de la Construcción",
+  description: "Marketplace para conectar clientes con profesionales de la construcción. Encuentra expertos especializados, recibe propuestas y gestiona tus proyectos de obra en un solo lugar.",
+  keywords: "construcción, proyectos, profesionales, marketplace, obras, arquitectura, ingeniería civil, contratistas",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico", 
