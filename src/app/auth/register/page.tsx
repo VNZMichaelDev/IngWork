@@ -78,40 +78,62 @@ export default function RegisterPage({ searchParams }: Props) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-8 bg-gray-50">
-      <main className="w-full max-w-md space-y-6 bg-white p-8 rounded-lg shadow-md">
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-gradient-to-br from-blue-50 via-white to-green-50 relative overflow-hidden">
+      {/* Decorative background */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-10">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
+        <div className="absolute top-40 right-10 w-72 h-72 bg-green-400 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
+      </div>
+      
+      <main className="w-full max-w-md space-y-6 bg-white p-8 rounded-2xl shadow-xl border border-gray-100 relative z-10">
         <div className="text-center">
-          <h1 className="text-2xl font-bold">Crear cuenta</h1>
-          <p className="text-gray-600 mt-2">Únete a ConstruMatch</p>
+          <div className="inline-block p-3 bg-green-100 rounded-full mb-4">
+            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+            </svg>
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900">Crea tu cuenta</h1>
+          <p className="text-gray-600 mt-2">Únete a ConstruMatch hoy</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-semibold text-gray-700 mb-3">
               Selecciona tu rol
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
                 onClick={() => setRole("client")}
-                className={`p-3 rounded border text-sm font-medium transition ${
+                className={`p-4 rounded-lg border-2 text-sm font-semibold transition-all ${
                   role === "client"
-                    ? "border-blue-600 bg-blue-50 text-blue-700"
-                    : "border-gray-200 hover:bg-gray-50"
+                    ? "border-blue-600 bg-blue-50 text-blue-700 shadow-md scale-105"
+                    : "border-gray-200 hover:bg-gray-50 hover:border-gray-300"
                 }`}
               >
-                Cliente
+                <div className="flex flex-col items-center gap-2">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                  Cliente
+                </div>
               </button>
               <button
                 type="button"
                 onClick={() => setRole("engineer")}
-                className={`p-3 rounded border text-sm font-medium transition ${
+                className={`p-4 rounded-lg border-2 text-sm font-semibold transition-all ${
                   role === "engineer"
-                    ? "border-blue-600 bg-blue-50 text-blue-700"
-                    : "border-gray-200 hover:bg-gray-50"
+                    ? "border-green-600 bg-green-50 text-green-700 shadow-md scale-105"
+                    : "border-gray-200 hover:bg-gray-50 hover:border-gray-300"
                 }`}
               >
-                Ingeniero
+                <div className="flex flex-col items-center gap-2">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  Profesional
+                </div>
               </button>
             </div>
           </div>
