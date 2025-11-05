@@ -349,7 +349,11 @@ CREATE INDEX idx_notifications_created_at ON public.notifications(created_at DES
 -- 11. ROW LEVEL SECURITY (RLS) POLICIES
 -- =====================================================
 
--- Enable RLS on all tables
+-- NOTA: RLS está DESHABILITADO para facilitar el desarrollo
+-- En producción, deberías habilitar RLS para mayor seguridad
+
+-- Para habilitar RLS en el futuro, descomenta estas líneas:
+/*
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.proposals ENABLE ROW LEVEL SECURITY;
@@ -396,6 +400,7 @@ CREATE POLICY "Users can insert reviews" ON public.reviews FOR INSERT WITH CHECK
 -- Notifications policies
 CREATE POLICY "Users can view their own notifications" ON public.notifications FOR SELECT USING (user_id = auth.uid());
 CREATE POLICY "Users can update their own notifications" ON public.notifications FOR UPDATE USING (user_id = auth.uid());
+*/
 
 -- =====================================================
 -- 12. FUNCTIONS AND TRIGGERS
@@ -476,22 +481,30 @@ $$ LANGUAGE plpgsql;
 -- 13. SAMPLE DATA (Optional - for testing)
 -- =====================================================
 
+-- NOTA: Los datos de ejemplo están comentados porque requieren usuarios reales en auth.users
+-- Para crear datos de prueba:
+-- 1. Primero registra usuarios reales a través de Supabase Auth
+-- 2. Luego usa sus UUIDs reales para insertar perfiles
+
+-- Ejemplo de cómo insertar datos después de crear usuarios:
+/*
 -- Sample client profile
 INSERT INTO public.profiles (id, role, full_name, email, phone, company, location, industry) VALUES
-('00000000-0000-0000-0000-000000000001', 'client', 'María García', 'maria@empresa.com', '+34 600 123 456', 'Tech Solutions SL', 'Madrid, España', 'Tecnología');
+('<UUID_REAL_DE_AUTH_USERS>', 'client', 'María García', 'maria@empresa.com', '+34 600 123 456', 'Tech Solutions SL', 'Madrid, España', 'Tecnología');
 
 -- Sample engineer profiles
 INSERT INTO public.profiles (id, role, full_name, email, phone, location, specialty, experience_years, hourly_rate, availability, skills) VALUES
-('00000000-0000-0000-0000-000000000002', 'engineer', 'Carlos Rodríguez', 'carlos@ingeniero.com', '+34 600 654 321', 'Barcelona, España', 'Desarrollo Web', 5, 45.00, 'available', ARRAY['JavaScript', 'React', 'Node.js', 'PostgreSQL']),
-('00000000-0000-0000-0000-000000000003', 'engineer', 'Ana Martínez', 'ana@ingeniera.com', '+34 600 789 123', 'Valencia, España', 'Ingeniería Civil', 8, 60.00, 'available', ARRAY['AutoCAD', 'Revit', 'Gestión de Proyectos']);
+('<UUID_REAL_DE_AUTH_USERS>', 'engineer', 'Carlos Rodríguez', 'carlos@ingeniero.com', '+34 600 654 321', 'Barcelona, España', 'Desarrollo Web', 5, 45.00, 'available', ARRAY['JavaScript', 'React', 'Node.js', 'PostgreSQL']),
+('<UUID_REAL_DE_AUTH_USERS>', 'engineer', 'Ana Martínez', 'ana@ingeniera.com', '+34 600 789 123', 'Valencia, España', 'Ingeniería Civil', 8, 60.00, 'available', ARRAY['AutoCAD', 'Revit', 'Gestión de Proyectos']);
 
 -- Sample project
 INSERT INTO public.projects (id, client_id, title, description, category, budget_estimate, eta_days, location, status) VALUES
-('00000000-0000-0000-0000-000000000010', '00000000-0000-0000-0000-000000000001', 'Desarrollo de E-commerce', 'Necesito desarrollar una tienda online completa con sistema de pagos y gestión de inventario', 'Desarrollo Web', 5000.00, 30, 'Remoto', 'open');
+('<UUID_GENERADO>', '<UUID_DEL_CLIENTE>', 'Desarrollo de E-commerce', 'Necesito desarrollar una tienda online completa con sistema de pagos y gestión de inventario', 'Desarrollo Web', 5000.00, 30, 'Remoto', 'open');
 
 -- Sample proposal
 INSERT INTO public.proposals (id, project_id, engineer_id, bid_amount, eta_days, details, status) VALUES
-('00000000-0000-0000-0000-000000000020', '00000000-0000-0000-0000-000000000010', '00000000-0000-0000-0000-000000000002', 4500.00, 25, 'Propongo desarrollar el e-commerce usando React y Node.js con Stripe para pagos. Incluye diseño responsive y panel de administración.', 'accepted');
+('<UUID_GENERADO>', '<UUID_DEL_PROYECTO>', '<UUID_DEL_INGENIERO>', 4500.00, 25, 'Propongo desarrollar el e-commerce usando React y Node.js con Stripe para pagos. Incluye diseño responsive y panel de administración.', 'accepted');
+*/
 
 -- =====================================================
 -- 14. GRANTS AND PERMISSIONS

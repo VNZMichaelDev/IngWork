@@ -36,7 +36,6 @@ export default function NewProjectPage() {
   const [budgetEstimate, setBudgetEstimate] = useState("");
   const [etaDays, setEtaDays] = useState("");
   const [location, setLocation] = useState("");
-  const [privacy, setPrivacy] = useState("public");
 
   useEffect(() => {
     loadUserData();
@@ -83,8 +82,7 @@ export default function NewProjectPage() {
         budget_estimate: budgetEstimate ? parseFloat(budgetEstimate) : null,
         eta_days: etaDays ? parseInt(etaDays) : null,
         location: location.trim() || null,
-        privacy,
-        status: "pending"
+        status: "open"
       };
 
       const { data, error } = await supabase
@@ -248,21 +246,6 @@ export default function NewProjectPage() {
               </div>
             </div>
 
-            <div>
-              <label htmlFor="privacy" className="block text-sm font-medium text-gray-700 mb-1">
-                Privacidad del proyecto
-              </label>
-              <select
-                id="privacy"
-                value={privacy}
-                onChange={(e) => setPrivacy(e.target.value)}
-                className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              >
-                <option value="public">Público - Visible para todos los ingenieros</option>
-                <option value="registered">Registrados - Solo usuarios registrados</option>
-                <option value="invite_only">Solo por invitación</option>
-              </select>
-            </div>
 
             {error && (
               <div className="text-red-600 text-sm bg-red-50 p-3 rounded">

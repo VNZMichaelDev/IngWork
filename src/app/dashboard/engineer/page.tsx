@@ -77,8 +77,7 @@ export default function EngineerDashboard() {
             company
           )
         `)
-        .eq("status", "pending")
-        .eq("privacy", "public")
+        .eq("status", "open")
         .order("created_at", { ascending: false })
         .limit(10);
 

@@ -194,16 +194,14 @@ export default function OnboardingPage() {
 
                   <div>
                     <label htmlFor="hourlyRate" className="block text-sm font-medium text-gray-700 mb-1">
-                      Tarifa por hora (USD)
+                      Carnet de colegiatura
                     </label>
                     <Input
                       id="hourlyRate"
-                      type="number"
-                      min="0"
-                      step="0.01"
+                      type="text"
                       value={hourlyRate}
                       onChange={(e) => setHourlyRate(e.target.value)}
-                      placeholder="50.00"
+                      placeholder="Ej: CIP-12345"
                     />
                   </div>
                 </div>

@@ -18,6 +18,8 @@ export default function RegisterPage({ searchParams }: Props) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
@@ -55,12 +57,20 @@ export default function RegisterPage({ searchParams }: Props) {
 
       if (data.user) {
         // Create profile immediately
-        const { error: profileError } = await authClient.createProfile({
+        const profileData: any = {
           id: data.user.id,
           role,
           full_name: fullName,
           email: email,
-        });
+        };
+
+        // Agregar campos adicionales para clientes
+        if (role === "client") {
+          if (phone) profileData.phone = phone;
+          if (location) profileData.location = location;
+        }
+
+        const { error: profileError } = await authClient.createProfile(profileData);
 
         if (profileError) {
           setError("Error creando perfil: " + profileError.message);
@@ -165,6 +175,36 @@ export default function RegisterPage({ searchParams }: Props) {
               placeholder="tu@email.com"
             />
           </div>
+
+          {role === "client" && (
+            <>
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                  Teléfono
+                </label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="+1 234 567 8900"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">
+                  Ubicación
+                </label>
+                <Input
+                  id="location"
+                  type="text"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  placeholder="Ciudad, País"
+                />
+              </div>
+            </>
+          )}
 
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
