@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { RatingModal } from "@/components/ui/rating-modal";
+import { StarRating } from "@/components/ui/star-rating";
 import { authClient } from "@/lib/auth";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -47,6 +49,9 @@ export default function ClientProjectDetailPage() {
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [showRatingModal, setShowRatingModal] = useState(false);
+  const [selectedEngineer, setSelectedEngineer] = useState<{id: string, name: string} | null>(null);
+  const [acceptedProposal, setAcceptedProposal] = useState<Proposal | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -153,6 +158,12 @@ export default function ClientProjectDetailPage() {
           .update({ status: "rejected" })
           .eq("project_id", projectId)
           .neq("id", proposalId);
+        
+        // Guardar la propuesta aceptada para poder calificar después
+        const acceptedProp = proposals.find(p => p.id === proposalId);
+        if (acceptedProp) {
+          setAcceptedProposal(acceptedProp);
+        }
       }
 
       setSuccess(action === "accept" ? "Propuesta aceptada" : "Propuesta rechazada");
@@ -228,6 +239,18 @@ export default function ClientProjectDetailPage() {
     }
   };
 
+  const handleOpenRatingModal = (engineerId: string, engineerName: string) => {
+    setSelectedEngineer({ id: engineerId, name: engineerName });
+    setShowRatingModal(true);
+  };
+
+  const handleRatingSuccess = () => {
+    setSuccess("¡Calificación enviada exitosamente!");
+    setShowRatingModal(false);
+    setSelectedEngineer(null);
+    loadData();
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -297,6 +320,34 @@ export default function ClientProjectDetailPage() {
               <p className="text-gray-700">{project.description}</p>
               {project.location && (
                 <p className="text-sm text-gray-500 mt-2">Ubicación: {project.location}</p>
+              )}
+            </div>
+            
+            {/* Botones de acción según el estado del proyecto */}
+            <div className="ml-4 flex gap-2">
+              {project.status === "in_progress" && (
+                <Button
+                  onClick={async () => {
+                    const supabase = createSupabaseBrowserClient();
+                    await supabase
+                      .from("projects")
+                      .update({ status: "completed" })
+                      .eq("id", projectId);
+                    loadData();
+                  }}
+                  className="bg-green-500 hover:bg-green-600"
+                >
+                  ✓ Marcar como Completado
+                </Button>
+              )}
+              
+              {project.status === "completed" && acceptedProposal && (
+                <Button
+                  onClick={() => handleOpenRatingModal(acceptedProposal.engineer.id, acceptedProposal.engineer.full_name)}
+                  className="bg-yellow-500 hover:bg-yellow-600"
+                >
+                  ⭐ Calificar Ingeniero
+                </Button>
               )}
             </div>
           </div>
@@ -399,7 +450,7 @@ export default function ClientProjectDetailPage() {
                         )}
                       </div>
 
-                      {proposal.status === "sent" && project.status === "pending" && (
+                      {proposal.status === "sent" && (project.status === "open" || project.status === "pending") && (
                         <div className="flex gap-2">
                           <Button
                             variant="outline"
@@ -426,6 +477,19 @@ export default function ClientProjectDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Modal de Calificación */}
+      {showRatingModal && selectedEngineer && user && (
+        <RatingModal
+          isOpen={showRatingModal}
+          onClose={() => setShowRatingModal(false)}
+          projectId={projectId}
+          revieweeId={selectedEngineer.id}
+          reviewerId={user.id}
+          revieweeName={selectedEngineer.name}
+          onSuccess={handleRatingSuccess}
+        />
+      )}
     </div>
   );
 }
