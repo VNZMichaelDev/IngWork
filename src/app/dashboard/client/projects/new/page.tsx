@@ -10,16 +10,16 @@ import { authClient } from "@/lib/auth";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const categories = [
-  "Desarrollo Web",
-  "Desarrollo Móvil",
-  "Diseño UI/UX",
-  "Ingeniería Civil",
-  "Ingeniería Mecánica",
-  "Ingeniería Eléctrica",
-  "Arquitectura",
-  "Consultoría",
-  "Marketing Digital",
-  "Otro"
+  "Construcción",
+  "Mantenimiento y mejoramiento",
+  "Remodelación",
+  "Servicios técnicos y documentación",
+  "Asesorías y consultorías",
+  "Supervisión",
+  "Categoría A - Edificaciones esenciales",
+  "Categoría B - Edificaciones de uso especial",
+  "Categoría C - Edificaciones comunes",
+  "Categoría D - Edificaciones menores"
 ];
 
 export default function NewProjectPage() {
