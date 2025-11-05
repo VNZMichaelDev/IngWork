@@ -220,19 +220,18 @@ CREATE TABLE public.project_categories (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Insert default categories
+-- Insert construction and building categories
 INSERT INTO public.project_categories (name, description, icon) VALUES
-('Desarrollo Web', 'Sitios web, aplicaciones web, e-commerce', 'code'),
-('Desarrollo Móvil', 'Apps para iOS y Android', 'smartphone'),
-('Ingeniería de Software', 'Sistemas complejos, arquitectura de software', 'cpu'),
-('Ingeniería Civil', 'Construcción, infraestructura, diseño estructural', 'building'),
-('Ingeniería Mecánica', 'Diseño mecánico, manufactura, automatización', 'settings'),
-('Ingeniería Eléctrica', 'Sistemas eléctricos, electrónicos, automatización', 'zap'),
-('Arquitectura', 'Diseño arquitectónico, planos, modelado 3D', 'home'),
-('Consultoría', 'Asesoría técnica, análisis, optimización', 'briefcase'),
-('Marketing Digital', 'SEO, SEM, redes sociales, contenido', 'trending-up'),
-('Diseño Gráfico', 'Branding, UI/UX, ilustración', 'palette'),
-('Otro', 'Otros servicios profesionales', 'more-horizontal');
+('Construcción', 'Proyectos de construcción nueva', 'building'),
+('Mantenimiento y mejoramiento', 'Mantenimiento y mejoras de edificaciones', 'wrench'),
+('Remodelación', 'Remodelación y renovación de espacios', 'home'),
+('Servicios técnicos y documentación', 'Documentación técnica, planos, estudios', 'file-text'),
+('Asesorías y consultorías', 'Asesoría técnica y consultoría profesional', 'briefcase'),
+('Supervisión', 'Supervisión de obras y proyectos', 'eye'),
+('Categoría A - Edificaciones esenciales', 'Hospitales, estaciones de bomberos, comisarías, centrales eléctricas, etc.', 'shield'),
+('Categoría B - Edificaciones de uso especial', 'Escuelas, universidades, iglesias, cines, estadios, museos, centros comerciales', 'users'),
+('Categoría C - Edificaciones comunes', 'Viviendas, oficinas, locales comerciales pequeños, talleres, edificios multifamiliares', 'home'),
+('Categoría D - Edificaciones menores', 'Construcciones agrícolas ligeras, depósitos pequeños, cobertizos, garajes, cercos', 'box');
 
 -- =====================================================
 -- 9. SKILLS TABLE (Reference data)

@@ -365,11 +365,11 @@ export default function ClientProjectDetailPage() {
                         <p className="text-lg font-semibold">{proposal.eta_days} días</p>
                       </div>
                       <div className="bg-gray-50 p-3 rounded">
-                        <p className="text-sm text-gray-600">Tarifa por hora</p>
+                        <p className="text-sm text-gray-600">Carnet de colegiatura</p>
                         <p className="text-lg font-semibold">
                           {proposal.engineer.hourly_rate 
-                            ? `$${proposal.engineer.hourly_rate}/hr`
-                            : "No especificada"
+                            ? proposal.engineer.hourly_rate
+                            : "No especificado"
                           }
                         </p>
                       </div>

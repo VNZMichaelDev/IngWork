@@ -354,9 +354,9 @@ export default function EngineersSearchPage() {
                             </p>
                           </div>
                           <div className="bg-gray-50 p-3 rounded">
-                            <p className="text-sm text-gray-600">Tarifa/hora</p>
+                            <p className="text-sm text-gray-600">Carnet de colegiatura</p>
                             <p className="font-semibold">
-                              {engineer.hourly_rate ? `$${engineer.hourly_rate}` : "No especificada"}
+                              {engineer.hourly_rate ? engineer.hourly_rate : "No especificado"}
                             </p>
                           </div>
                           <div className="bg-gray-50 p-3 rounded">
