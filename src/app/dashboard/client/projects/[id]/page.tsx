@@ -438,6 +438,11 @@ export default function ClientProjectDetailPage() {
                         <span className="text-sm text-gray-500">
                           Enviada: {new Date(proposal.created_at).toLocaleDateString()}
                         </span>
+                        <Link href={`/dashboard/client/engineers/${proposal.engineer.id}`}>
+                          <span className="text-blue-600 hover:underline text-sm cursor-pointer">
+                            Ver perfil y reseñas →
+                          </span>
+                        </Link>
                         {proposal.engineer.portfolio_url && (
                           <a
                             href={proposal.engineer.portfolio_url}

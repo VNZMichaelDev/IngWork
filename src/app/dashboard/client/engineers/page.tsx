@@ -383,7 +383,12 @@ export default function EngineersSearchPage() {
                         </div>
                       </div>
 
-                      <div className="ml-4">
+                      <div className="ml-4 flex gap-2">
+                        <Link href={`/dashboard/client/engineers/${engineer.id}`}>
+                          <Button size="sm" variant="outline">
+                            Ver perfil y reseñas
+                          </Button>
+                        </Link>
                         <Button size="sm">
                           Contactar
                         </Button>
