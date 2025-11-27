@@ -16,6 +16,7 @@ export interface Profile {
   email?: string;
   phone?: string;
   avatar_url?: string;
+  location?: string;
   // Engineer specific fields
   specialty?: string;
   experience_years?: number;
@@ -23,6 +24,14 @@ export interface Profile {
   hourly_rate?: number;
   company?: string;
   portfolio_url?: string;
+  // New document fields
+  cv_url?: string;
+  dni_url?: string;
+  colegio_carnet_url?: string;
+  // Admin and verification fields
+  is_admin?: boolean;
+  is_verified?: boolean;
+  country_code?: string;
   created_at: string;
   updated_at: string;
 }

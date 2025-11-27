@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { authClient, Profile } from "@/lib/auth";
+import DocumentUpload from "@/components/DocumentUpload";
+import { UploadedFile } from "@/lib/storage";
 
 export default function OnboardingPage() {
   const [user, setUser] = useState<{ id: string; email?: string } | null>(null);
@@ -23,6 +25,12 @@ export default function OnboardingPage() {
   const [hourlyRate, setHourlyRate] = useState("");
   const [portfolioUrl, setPortfolioUrl] = useState("");
   const [availability, setAvailability] = useState("available");
+  const [countryCode, setCountryCode] = useState("PE");
+
+  // Document uploads
+  const [cvFile, setCvFile] = useState<UploadedFile | null>(null);
+  const [dniFile, setDniFile] = useState<UploadedFile | null>(null);
+  const [colegioCarnelFile, setColegioCarnelFile] = useState<UploadedFile | null>(null);
 
   useEffect(() => {
     loadUserData();
@@ -53,6 +61,18 @@ export default function OnboardingPage() {
       setHourlyRate(profile.hourly_rate?.toString() || "");
       setPortfolioUrl(profile.portfolio_url || "");
       setAvailability(profile.availability || "available");
+      setCountryCode(profile.country_code || "PE");
+
+      // Pre-fill documents if they exist
+      if (profile.cv_url) {
+        setCvFile({ name: "CV", url: profile.cv_url, size: 0, type: "application/pdf" });
+      }
+      if (profile.dni_url) {
+        setDniFile({ name: "DNI", url: profile.dni_url, size: 0, type: "application/pdf" });
+      }
+      if (profile.colegio_carnet_url) {
+        setColegioCarnelFile({ name: "Carnet", url: profile.colegio_carnet_url, size: 0, type: "application/pdf" });
+      }
     } catch (err) {
       setError("Error cargando datos del usuario");
     } finally {
@@ -68,9 +88,34 @@ export default function OnboardingPage() {
     if (!profile) return;
 
     try {
+      // Validate required fields for engineers
+      if (profile.role === "engineer") {
+        if (!specialty) {
+          setError("La especialidad es requerida");
+          setSaving(false);
+          return;
+        }
+        if (!cvFile) {
+          setError("Debes subir tu CV");
+          setSaving(false);
+          return;
+        }
+        if (!dniFile) {
+          setError("Debes subir una copia de tu DNI");
+          setSaving(false);
+          return;
+        }
+        if (!colegioCarnelFile) {
+          setError("Debes subir tu carnet de colegio de ingenieros");
+          setSaving(false);
+          return;
+        }
+      }
+
       const updates: Partial<Profile> = {
         phone: phone || undefined,
         company: company || undefined,
+        country_code: countryCode,
       };
 
       if (profile.role === "engineer") {
@@ -79,6 +124,10 @@ export default function OnboardingPage() {
         updates.hourly_rate = hourlyRate ? parseFloat(hourlyRate) : undefined;
         updates.portfolio_url = portfolioUrl || undefined;
         updates.availability = availability;
+        // Add document URLs
+        updates.cv_url = cvFile?.url;
+        updates.dni_url = dniFile?.url;
+        updates.colegio_carnet_url = colegioCarnelFile?.url;
       }
 
       await authClient.updateProfile(profile.id, updates);
@@ -91,6 +140,7 @@ export default function OnboardingPage() {
       }
     } catch (err) {
       setError("Error guardando perfil. Intenta de nuevo.");
+      console.error(err);
     } finally {
       setSaving(false);
     }
@@ -233,6 +283,64 @@ export default function OnboardingPage() {
                     <option value="busy">Ocupado</option>
                     <option value="unavailable">No disponible</option>
                   </select>
+                </div>
+
+                <div>
+                  <label htmlFor="countryCode" className="block text-sm font-medium text-gray-700 mb-1">
+                    País
+                  </label>
+                  <select
+                    id="countryCode"
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  >
+                    <option value="PE">Perú</option>
+                    <option value="CO">Colombia</option>
+                    <option value="CL">Chile</option>
+                    <option value="AR">Argentina</option>
+                    <option value="MX">México</option>
+                    <option value="ES">España</option>
+                  </select>
+                </div>
+
+                {/* Documents Section */}
+                <div className="border-t-2 border-gray-200 pt-6 mt-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                    📄 Documentos Requeridos
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-6">
+                    Sube tus documentos profesionales para validar tu credibilidad. Estos serán revisados por nuestro equipo de administración.
+                  </p>
+
+                  <div className="space-y-6">
+                    <DocumentUpload
+                      userId={profile.id}
+                      documentType="cv"
+                      label="Currículum Vitae (CV)"
+                      description="Sube tu CV en PDF. Máximo 10MB."
+                      onFileUploaded={setCvFile}
+                      existingUrl={cvFile?.url}
+                    />
+
+                    <DocumentUpload
+                      userId={profile.id}
+                      documentType="dni"
+                      label="Copia de DNI"
+                      description="Sube una copia clara de tu DNI en PDF. Máximo 10MB."
+                      onFileUploaded={setDniFile}
+                      existingUrl={dniFile?.url}
+                    />
+
+                    <DocumentUpload
+                      userId={profile.id}
+                      documentType="colegio_carnet"
+                      label="Carnet de Colegio de Ingenieros"
+                      description="Sube tu carnet de colegiatura en PDF. Máximo 10MB."
+                      onFileUploaded={setColegioCarnelFile}
+                      existingUrl={colegioCarnelFile?.url}
+                    />
+                  </div>
                 </div>
               </>
             )}

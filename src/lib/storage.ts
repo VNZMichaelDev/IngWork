@@ -6,13 +6,17 @@ export interface FileUpload {
 }
 
 export interface UploadedFile {
-  id: string;
-  file_path: string;
-  file_name: string;
-  project_id: string;
-  uploader_id: string;
-  created_at: string;
+  id?: string;
+  file_path?: string;
+  file_name?: string;
+  project_id?: string;
+  uploader_id?: string;
+  created_at?: string;
   public_url?: string;
+  name?: string;
+  size?: number;
+  type?: string;
+  url?: string;
 }
 
 export const storageClient = {
