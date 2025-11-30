@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { authClient } from "@/lib/auth";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -18,6 +19,7 @@ interface Engineer {
   portfolio_url: string;
   availability: string;
   avatar_url: string;
+  phone: string;
 }
 
 const specialties = [
@@ -389,9 +391,11 @@ export default function EngineersSearchPage() {
                             Ver perfil y reseñas
                           </Button>
                         </Link>
-                        <Button size="sm">
-                          Contactar
-                        </Button>
+                        <WhatsAppButton
+                          phone={engineer.phone}
+                          engineerName={engineer.full_name}
+                          size="sm"
+                        />
                       </div>
                     </div>
                   </div>

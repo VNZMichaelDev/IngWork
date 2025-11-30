@@ -46,6 +46,9 @@ export default function EngineerDashboard() {
 
   useEffect(() => {
     loadData();
+    // Recargar datos cada 5 segundos para asegurar que los cambios se reflejen
+    const interval = setInterval(loadData, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   const loadData = async () => {
