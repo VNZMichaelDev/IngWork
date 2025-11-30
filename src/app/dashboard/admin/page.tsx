@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { authClient, Profile } from "@/lib/auth";
+import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { Users, FileText, CheckCircle, AlertCircle } from "lucide-react";
 import Link from "next/link";
 
@@ -12,6 +13,12 @@ export default function AdminDashboard() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [stats, setStats] = useState({
+    totalEngineers: 0,
+    verifiedEngineers: 0,
+    pendingEngineers: 0,
+    totalClients: 0,
+  });
   const router = useRouter();
 
   useEffect(() => {
@@ -40,6 +47,33 @@ export default function AdminDashboard() {
 
       setUser(user);
       setProfile(profile);
+
+      // Load statistics
+      const supabase = createSupabaseBrowserClient();
+      
+      // Get total engineers
+      const { data: engineers, error: engError } = await supabase
+        .from("profiles")
+        .select("id, is_verified")
+        .eq("role", "engineer");
+
+      // Get total clients
+      const { data: clients, error: clientError } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("role", "client");
+
+      if (!engError && engineers) {
+        const verified = engineers.filter(e => e.is_verified).length;
+        const pending = engineers.length - verified;
+        
+        setStats({
+          totalEngineers: engineers.length,
+          verifiedEngineers: verified,
+          pendingEngineers: pending,
+          totalClients: clients?.length || 0,
+        });
+      }
     } catch (err) {
       setError("Error cargando datos del usuario");
       console.error(err);
@@ -98,7 +132,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm font-medium">Ingenieros Totales</p>
-                <p className="text-3xl font-bold text-gray-900 mt-2">-</p>
+                <p className="text-3xl font-bold text-gray-900 mt-2">{stats.totalEngineers}</p>
               </div>
               <Users className="w-12 h-12 text-blue-500 opacity-20" />
             </div>
@@ -108,7 +142,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm font-medium">Verificados</p>
-                <p className="text-3xl font-bold text-green-600 mt-2">-</p>
+                <p className="text-3xl font-bold text-green-600 mt-2">{stats.verifiedEngineers}</p>
               </div>
               <CheckCircle className="w-12 h-12 text-green-500 opacity-20" />
             </div>
@@ -118,7 +152,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm font-medium">Pendientes de Revisar</p>
-                <p className="text-3xl font-bold text-yellow-600 mt-2">-</p>
+                <p className="text-3xl font-bold text-yellow-600 mt-2">{stats.pendingEngineers}</p>
               </div>
               <AlertCircle className="w-12 h-12 text-yellow-500 opacity-20" />
             </div>
@@ -128,7 +162,7 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm font-medium">Clientes Totales</p>
-                <p className="text-3xl font-bold text-purple-600 mt-2">-</p>
+                <p className="text-3xl font-bold text-purple-600 mt-2">{stats.totalClients}</p>
               </div>
               <Users className="w-12 h-12 text-purple-500 opacity-20" />
             </div>

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import VerificationBadge from "@/components/VerificationBadge";
 import { authClient } from "@/lib/auth";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -20,6 +21,7 @@ interface Engineer {
   availability: string;
   avatar_url: string;
   phone: string;
+  is_verified?: boolean;
 }
 
 const specialties = [
@@ -337,7 +339,10 @@ export default function EngineersSearchPage() {
                             </svg>
                           </div>
                           <div>
-                            <h3 className="text-lg font-semibold">{engineer.full_name}</h3>
+                            <div className="flex items-center gap-2 mb-1">
+                              <h3 className="text-lg font-semibold">{engineer.full_name}</h3>
+                              <VerificationBadge isVerified={engineer.is_verified || false} size="sm" showLabel={false} />
+                            </div>
                             <p className="text-gray-600">{engineer.specialty}</p>
                             {engineer.company && (
                               <p className="text-sm text-gray-500">{engineer.company}</p>
