@@ -186,6 +186,13 @@ export default function EngineerDashboard() {
               <span className="hidden sm:inline text-sm text-gray-600">
                 Hola, {profile?.full_name || "Ingeniero"}
               </span>
+              {profile?.is_admin && (
+                <Link href="/dashboard/admin">
+                  <Button variant="default" size="sm" className="text-xs sm:text-sm bg-purple-600 hover:bg-purple-700">
+                    Panel Admin
+                  </Button>
+                </Link>
+              )}
               <Button onClick={handleSignOut} variant="outline" size="sm" className="text-xs sm:text-sm">
                 Cerrar sesión
               </Button>

@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { StarRating } from "@/components/ui/star-rating";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { authClient } from "@/lib/auth";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -223,9 +224,9 @@ export default function EngineerPublicProfilePage() {
             </div>
           </div>
 
-          {/* Portafolio */}
-          {engineer.portfolio_url && (
-            <div className="mt-6">
+          {/* Portafolio y Contacto */}
+          <div className="mt-6 flex flex-col sm:flex-row gap-4">
+            {engineer.portfolio_url && (
               <a
                 href={engineer.portfolio_url}
                 target="_blank"
@@ -234,8 +235,14 @@ export default function EngineerPublicProfilePage() {
               >
                 Ver portafolio →
               </a>
-            </div>
-          )}
+            )}
+            <WhatsAppButton
+              phone={engineer.phone}
+              engineerName={engineer.full_name}
+              variant="default"
+              size="default"
+            />
+          </div>
         </div>
 
         {/* Sección de Reseñas */}

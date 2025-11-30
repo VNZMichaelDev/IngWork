@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { authClient, Profile } from "@/lib/auth";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
-import { ArrowLeft, CheckCircle, AlertCircle, Eye, FileText } from "lucide-react";
+import { ArrowLeft, CheckCircle, AlertCircle, Eye, FileText, ExternalLink } from "lucide-react";
 import Link from "next/link";
 
 export default function AdminEngineersPage() {
@@ -224,6 +224,16 @@ export default function AdminEngineersPage() {
 
                   {/* Actions */}
                   <div className="flex flex-col gap-2 ml-4">
+                    <Link href={`/dashboard/client/engineers/${engineer.id}`}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full"
+                      >
+                        <Eye className="w-4 h-4 mr-2" />
+                        Ver Perfil
+                      </Button>
+                    </Link>
                     {engineer.is_verified ? (
                       <Button
                         variant="outline"
