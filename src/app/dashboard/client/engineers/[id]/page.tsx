@@ -8,6 +8,7 @@ import { StarRating } from "@/components/ui/star-rating";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { authClient } from "@/lib/auth";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { CheckCircle } from "lucide-react";
 
 interface Engineer {
   id: string;
@@ -21,6 +22,7 @@ interface Engineer {
   portfolio_url: string;
   availability: string;
   created_at: string;
+  is_verified?: boolean;
 }
 
 interface Review {
@@ -180,7 +182,15 @@ export default function EngineerPublicProfilePage() {
                 </svg>
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">{engineer.full_name}</h1>
+                <div className="flex items-center gap-3 mb-2">
+                  <h1 className="text-3xl font-bold text-gray-900">{engineer.full_name}</h1>
+                  {engineer.is_verified && (
+                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+                      <CheckCircle className="w-4 h-4" />
+                      Verificado
+                    </span>
+                  )}
+                </div>
                 <p className="text-xl text-gray-600 mb-3">{engineer.specialty}</p>
                 {engineer.company && (
                   <p className="text-gray-500 mb-3">{engineer.company}</p>
