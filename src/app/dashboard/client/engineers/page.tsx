@@ -48,6 +48,8 @@ export default function EngineersSearchPage() {
   const [maxRate, setMaxRate] = useState("");
   const [minExperience, setMinExperience] = useState("");
   const [availabilityFilter, setAvailabilityFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
   const router = useRouter();
 
   useEffect(() => {
@@ -327,8 +329,11 @@ export default function EngineersSearchPage() {
                 </p>
               </div>
             ) : (
-              <div className="space-y-4">
-                {filteredEngineers.map((engineer) => (
+              <>
+                <div className="space-y-4">
+                  {filteredEngineers
+                    .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+                    .map((engineer) => (
                   <div key={engineer.id} className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition">
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
@@ -404,8 +409,46 @@ export default function EngineersSearchPage() {
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
+                    ))}
+                </div>
+
+                {/* Pagination */}
+                {filteredEngineers.length > itemsPerPage && (
+                  <div className="mt-8 flex justify-center items-center gap-2">
+                    <button
+                      onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                      disabled={currentPage === 1}
+                      className="px-4 py-2 border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                    >
+                      ← Anterior
+                    </button>
+                    
+                    <div className="flex gap-1">
+                      {Array.from({ length: Math.ceil(filteredEngineers.length / itemsPerPage) }, (_, i) => i + 1).map((page) => (
+                        <button
+                          key={page}
+                          onClick={() => setCurrentPage(page)}
+                          className={`px-3 py-2 rounded-lg ${
+                            currentPage === page
+                              ? "bg-blue-600 text-white"
+                              : "border hover:bg-gray-50"
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      ))}
+                    </div>
+                    
+                    <button
+                      onClick={() => setCurrentPage(Math.min(Math.ceil(filteredEngineers.length / itemsPerPage), currentPage + 1))}
+                      disabled={currentPage === Math.ceil(filteredEngineers.length / itemsPerPage)}
+                      className="px-4 py-2 border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                    >
+                      Siguiente →
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
