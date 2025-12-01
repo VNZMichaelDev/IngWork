@@ -130,22 +130,12 @@ export default function OnboardingPage() {
         updates.colegio_carnet_url = colegioCarnelFile?.url;
       }
 
+      // Los PDFs ya se subieron a Storage
+      // Intentamos actualizar el perfil pero no bloqueamos si falla
       try {
-        // Intentar actualizar usando la API route (evita problemas de RLS)
-        const response = await fetch("/api/update-profile", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: profile.id, updates }),
-        });
-
-        if (!response.ok) {
-          // Si falla, intentar con authClient como fallback
-          await authClient.updateProfile(profile.id, updates);
-        }
+        await authClient.updateProfile(profile.id, updates);
       } catch (updateErr) {
-        // Si falla la actualización de perfil, intentamos de todas formas
-        // porque los PDFs ya se subieron a Storage
-        console.warn("Error actualizando perfil (pero los PDFs se subieron):", updateErr);
+        console.warn("Advertencia: No se pudo actualizar el perfil, pero los PDFs se subieron correctamente");
       }
 
       // Redirect to appropriate dashboard
