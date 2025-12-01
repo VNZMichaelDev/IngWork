@@ -131,7 +131,17 @@ export default function OnboardingPage() {
       }
 
       try {
-        await authClient.updateProfile(profile.id, updates);
+        // Intentar actualizar usando la API route (evita problemas de RLS)
+        const response = await fetch("/api/update-profile", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: profile.id, updates }),
+        });
+
+        if (!response.ok) {
+          // Si falla, intentar con authClient como fallback
+          await authClient.updateProfile(profile.id, updates);
+        }
       } catch (updateErr) {
         // Si falla la actualización de perfil, intentamos de todas formas
         // porque los PDFs ya se subieron a Storage
