@@ -130,7 +130,13 @@ export default function OnboardingPage() {
         updates.colegio_carnet_url = colegioCarnelFile?.url;
       }
 
-      await authClient.updateProfile(profile.id, updates);
+      try {
+        await authClient.updateProfile(profile.id, updates);
+      } catch (updateErr) {
+        // Si falla la actualización de perfil, intentamos de todas formas
+        // porque los PDFs ya se subieron a Storage
+        console.warn("Error actualizando perfil (pero los PDFs se subieron):", updateErr);
+      }
 
       // Redirect to appropriate dashboard
       if (profile.role === "client") {
